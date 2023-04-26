@@ -1,0 +1,7 @@
+Django==4.2
+django-json-widget==1.1.1
+python-telegram-bot==20.2
+openai==0.27.4
+django-environ==0.10
+psycopg2-binary==2.9.6
+PyPDF2==3.0.1

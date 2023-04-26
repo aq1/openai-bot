@@ -1,0 +1,50 @@
+[
+  {
+    "model": "bot.bottext",
+    "fields": {
+      "label": "start",
+      "ru": "С помощью этого бота вы можете легко извлекать краткое содержание из PDF и DOCX файлов за считанные секунды. Просто загрузите файл, из которого вы хотите извлечь содержание, и наш бот сделает все остальное.",
+      "en": "With this bot, you can easily extract short summaries from PDF and DOCX files in seconds. Simply upload the file you want to extract a summary from, and our bot will take care of the rest"
+    }
+  },
+  {
+    "model": "bot.bottext",
+    "fields": {
+      "label": "downloading-file",
+      "ru": "☑️Скачиваем файл...",
+      "en": "☑️Downloading file..."
+    }
+  },
+  {
+    "model": "bot.bottext",
+    "fields": {
+      "label": "extracting-text",
+      "ru": "✅️Файл скачан\n☑️Извлекаем текст...",
+      "en": "✅️Download complete\n☑️Extracting text..."
+    }
+  },
+  {
+    "model": "bot.bottext",
+    "fields": {
+      "label": "summarizing",
+      "ru": "✅️Файл скачан\n✅️Текст прочитан: {} страниц\n☑️Извлекаем краткое содержание...",
+      "en": "✅️Download complete\n✅️Text is extracted: {} page(s)\n☑️Summarizing..."
+    }
+  },
+  {
+    "model": "bot.bottext",
+    "fields": {
+      "label": "no-text-in-file",
+      "ru": "Файл не содержит текста",
+      "en": "File contains no text"
+    }
+  },
+  {
+    "model": "bot.bottext",
+    "fields": {
+      "label": "page-summary",
+      "ru": "Страница {}\n\n{}",
+      "en": "Page{}\n\n{}"
+    }
+  }
+]
