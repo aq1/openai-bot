@@ -27,8 +27,8 @@
     "model": "bot.bottext",
     "fields": {
       "label": "summarizing",
-      "ru": "✅️Файл скачан\n✅️Текст прочитан: {} частей\n☑️Извлекаем краткое содержание...",
-      "en": "✅️Download complete\n✅️Text is extracted: {} part(s)\n☑️Summarizing..."
+      "ru": "✅️Файл скачан\n✅️Текст прочитан: {}\n☑️Извлекаем краткое содержание...",
+      "en": "✅️Download complete\n✅️Text is extracted: {}\n☑️Summarizing..."
     }
   },
   {

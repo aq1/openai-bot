@@ -10,8 +10,8 @@ logger = logging.getLogger('axiom')
 
 async def summarize_text(language: str, text: str) -> str:
     command = {
-        'ru': 'О чём текст?',
-        'en': 'Summarize text'
+        'ru': 'Обобщи текст в 40 словах',
+        'en': 'Summarize this in 40 words'
     }[language]
 
     try:
