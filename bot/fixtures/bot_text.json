@@ -27,8 +27,8 @@
     "model": "bot.bottext",
     "fields": {
       "label": "summarizing",
-      "ru": "✅️Файл скачан\n✅️Текст прочитан: {} страниц\n☑️Извлекаем краткое содержание...",
-      "en": "✅️Download complete\n✅️Text is extracted: {} page(s)\n☑️Summarizing..."
+      "ru": "✅️Файл скачан\n✅️Текст прочитан: {} частей\n☑️Извлекаем краткое содержание...",
+      "en": "✅️Download complete\n✅️Text is extracted: {} part(s)\n☑️Summarizing..."
     }
   },
   {
@@ -42,9 +42,17 @@
   {
     "model": "bot.bottext",
     "fields": {
+      "label": "language-set",
+      "ru": "Выбран русский язык",
+      "en": "English language is set"
+    }
+  },
+  {
+    "model": "bot.bottext",
+    "fields": {
       "label": "page-summary",
-      "ru": "Страница {}\n\n{}",
-      "en": "Page{}\n\n{}"
+      "ru": "Часть {}\n\n{}",
+      "en": "Part {}\n\n{}"
     }
   }
 ]

@@ -10,9 +10,9 @@ readers = {
 }
 
 
-def read_file_content(mime_type: str, data: io.BytesIO) -> list[str]:
+def read_file_content(mime_type: str, data: io.BytesIO) -> str:
     reader = readers.get(mime_type)
     if not reader:
-        return []
+        return ''
 
-    return reader(data)
+    return reader(data).strip()

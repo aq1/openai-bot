@@ -1,7 +1,8 @@
 from . import (
     start_handler,
-    log_handler,
+    db_log_handler,
     file_handler,
+    set_language_handler,
 )
 
 __all__ = [
@@ -12,8 +13,9 @@ HANDLER_GROUPS = (
     (
         start_handler.handler,
         file_handler.handler,
+        set_language_handler.handler,
     ),
     (
-        log_handler.handler,
+        db_log_handler.handler,
     ),
 )

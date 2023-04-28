@@ -1,10 +1,10 @@
 import telegram
-from telegram.ext import ContextTypes, MessageHandler, filters
+from telegram.ext import MessageHandler, filters
 
 from ...models import Chat, User, Message, Update
 
 
-async def log(update: telegram.Update, _: ContextTypes.DEFAULT_TYPE):
+async def db_log(update: telegram.Update, _):
     await Update.objects.acreate(
         id=update.update_id,
         data=update.to_dict(),
@@ -23,8 +23,8 @@ async def log(update: telegram.Update, _: ContextTypes.DEFAULT_TYPE):
     user, _ = await User.objects.aupdate_or_create(
         id=update.effective_user.id,
         defaults=dict(
-            is_bot=update.effective_user.is_bot,
-            is_premium=update.effective_user.is_premium,
+            is_bot=bool(update.effective_user.is_bot),
+            is_premium=bool(update.effective_user.is_premium),
             username=update.effective_user.username or '',
             first_name=update.effective_user.first_name or '',
             last_name=update.effective_user.last_name or '',
@@ -43,4 +43,4 @@ async def log(update: telegram.Update, _: ContextTypes.DEFAULT_TYPE):
     )
 
 
-handler = MessageHandler(filters.ALL, log)
+handler = MessageHandler(filters.ALL, db_log)
