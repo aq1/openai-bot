@@ -124,7 +124,7 @@ LOGGING = {
     'loggers': {
         '': {
             'handlers': ['console'],
-            'level': 'DEBUG',
+            'level': 'INFO',
         },
     }
 }
@@ -138,6 +138,7 @@ if env.bool('USE_AXIOM', default=False):
             org_id=env('AXIOM_ORG_ID'),
         ),
         'dataset': env('AXIOM_LOG_DATASET'),
+        'interval': 10,
     }
 
     LOGGING['loggers']['axiom'] = {

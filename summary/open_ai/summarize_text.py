@@ -21,8 +21,8 @@ async def summarize_text(language: str, text: str) -> str:
                 {"role": "user", "content": f"{command}:\n{text}"},
             ]
         )
-    except openai.OpenAIError:
-        logger.exception('openai error')
+    except openai.OpenAIError as e:
+        logger.error('openai error %s', ' '.join(e.args))
         return ''
 
     logger.info('openai response', response)

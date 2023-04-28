@@ -1,6 +1,7 @@
 from . import (
     start_handler,
     db_log_handler,
+    log_handler,
     file_handler,
     set_language_handler,
 )
@@ -17,5 +18,8 @@ HANDLER_GROUPS = (
     ),
     (
         db_log_handler.handler,
+    ),
+    (
+        log_handler.handler,
     ),
 )
