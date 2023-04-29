@@ -7,6 +7,7 @@ from . import (
 
 readers = {
     'application/pdf': pdf.read,
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document': docx.read,
 }
 
 

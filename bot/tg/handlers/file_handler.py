@@ -122,7 +122,7 @@ async def file(update: Update, context: L10nContext):
     )
 
     total_summary = []
-    async for summary in summarize_content_chunks(context.user.language, content_chunks):
+    async for summary in summarize_content_chunks(context.user.language, content_chunks[:settings.MAX_TEXT_PARTS]):
         if not summary:
             continue
         total_summary.append(summary)

@@ -8,3 +8,4 @@ PyPDF2==3.0.1
 tiktoken==0.3.3
 axiom-py==0.1.0
 python-json-logger==2.0.7
+docx2python==2.6.3
