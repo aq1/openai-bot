@@ -17,7 +17,6 @@ def start_bot():
     ).build()
 
     for group_id, handlers in enumerate(HANDLER_GROUPS):
-        for handler in handlers:
-            application.add_handler(handler, group=group_id)
+        application.add_handlers(handlers, group=group_id)
 
     application.run_polling()

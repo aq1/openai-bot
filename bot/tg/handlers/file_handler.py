@@ -23,18 +23,18 @@ async def download_file(document: Document) -> BinaryIO:
 
 async def check_file(file_unique_id) -> File | None:
     return await File.objects.filter(
-        file_id=file_unique_id,
+        id=file_unique_id,
     ).afirst()
 
 
-def split_content_by_tokens_length(content: str) -> list[str]:
+def split_content_by_tokens_length(content: str) -> tuple[int, list[str]]:
     encoding = tiktoken.get_encoding('cl100k_base')
     tokens = encoding.encode(content)
     content_chunks = []
-    for i in range(0, len(tokens), settings.MAX_TOKENS_PER_TEXT):
-        content_chunks.append(encoding.decode(tokens[i:i + settings.MAX_TOKENS_PER_TEXT]))
+    for i in range(0, len(tokens), settings.MAX_TOKENS_PER_PART):
+        content_chunks.append(encoding.decode(tokens[i:i + settings.MAX_TOKENS_PER_PART]))
 
-    return content_chunks
+    return len(tokens), content_chunks
 
 
 async def summarize_content_chunks(language: str, content_chunks: list[str]):
@@ -47,17 +47,27 @@ async def summarize_content_chunks(language: str, content_chunks: list[str]):
         )
 
 
-async def save_file(document_bytes: BinaryIO, file_id: str, user_id: int, title: str, summary: list[str]):
+async def save_file(
+        document_bytes: BinaryIO,
+        file_unique_id: str,
+        file_id: str,
+        user_id: int,
+        title: str,
+        tokens: int,
+):
     document_bytes.seek(0)
-    await File.objects.acreate(
-        file_id=file_id,
-        user_id=user_id,
-        title=title,
-        content=ContentFile(
-            name=title,
-            content=document_bytes.read(),
+    await File.objects.aupdate_or_create(
+        id=file_unique_id,
+        defaults=dict(
+            telegram_file_id=file_id,
+            user_id=user_id,
+            title=title,
+            tokens=tokens,
+            content=ContentFile(
+                name=title,
+                content=document_bytes.read(),
+            ),
         ),
-        summary=summary,
     )
 
 
@@ -84,23 +94,51 @@ def parts_count_to_str(language: str, count: int) -> str:
     return f'{count}'
 
 
+def format_status(status: list[list[str]]) -> str:
+    return '\n'.join(' '.join(s) for s in status)
+
+
 async def file(update: Update, context: L10nContext):
+
+    from summary.tasks.summarize_file import summarize_file
+
+    d = update.effective_message.document
+    content = await summarize_file(
+        file_id=d.file_unique_id,
+        telegram_file_id=d.file_id,
+        language='ru',
+        chat_id=1,
+        message_id=1,
+    )
+
+    await update.effective_message.reply_text(
+        text=content,
+    )
+
+    return
+
     _file = await check_file(update.effective_message.document.file_unique_id)
-    if _file and _file.summary:
-        await update.effective_chat.send_message(
-            text='\n\n'.join(_file.summary),
-        )
-        return
+
+    status = [
+        ['☑️', await context.s('downloading-file')],
+        ['◽️', await context.s('extracting-text')],
+        ['◽️', await context.s('summarizing')],
+    ]
 
     status_message = await update.effective_chat.send_message(
-        text=await context.s('downloading-file'),
+        text=format_status(status),
         reply_to_message_id=update.effective_message.id,
     )
 
-    document_bytes = await download_file(update.effective_message.document)
+    if _file:
+        document_bytes = _file.content
+    else:
+        document_bytes = await download_file(update.effective_message.document)
 
+    status[0] = ['✅️', await context.s('downloading-file-done')]
+    status[1][0] = '☑️'
     await status_message.edit_text(
-        text=await context.s('extracting-text'),
+        text=format_status(status),
     )
 
     content = read_file_content(
@@ -115,29 +153,53 @@ async def file(update: Update, context: L10nContext):
         )
         return
 
-    content_chunks = split_content_by_tokens_length(content)
+    tokens_count, content_chunks = split_content_by_tokens_length(content)
 
+    status[1] = [
+        '✅️',
+        (await context.s('extracting-text-done')).format(
+            parts_count_to_str(context.user.language, len(content_chunks))
+        )
+    ]
+    status[2][0] = '☑️'
     await status_message.edit_text(
-        text=(await context.s('summarizing')).format(parts_count_to_str(context.user.language, len(content_chunks))),
+        text=format_status(status),
     )
 
     total_summary = []
-    async for summary in summarize_content_chunks(context.user.language, content_chunks[:settings.MAX_TEXT_PARTS]):
+    part = 0
+    status_text = status[2][1]
+    async for summary in summarize_content_chunks(context.user.language, content_chunks):
+        part += 1
         if not summary:
             continue
         total_summary.append(summary)
-        await update.effective_chat.send_message(
-            text=summary,
-        )
 
-    await status_message.delete()
+        if part < len(content_chunks):
+            status[2][1] = f'{status_text} {part}/{len(content_chunks)}'
+            await status_message.edit_text(
+                text=format_status(status),
+            )
 
+    summary = total_summary[0]
+    if len(total_summary) > 1:
+        summary = await summarize_text(context.user.language, '\n'.join(total_summary))
+
+    await update.effective_chat.send_message(
+        text=summary,
+    )
+
+    status[2] = ['✅️', await context.s('summarizing-done')]
+    await status_message.edit_text(
+        text=format_status(status),
+    )
     await save_file(
-        file_id=update.effective_message.document.file_unique_id,
+        file_id=update.effective_message.document.file_id,
+        file_unique_id=update.effective_message.document.file_unique_id,
         user_id=update.effective_user.id,
         title=update.effective_message.document.file_name,
         document_bytes=document_bytes,
-        summary=total_summary,
+        tokens=tokens_count,
     )
 
 

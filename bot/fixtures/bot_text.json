@@ -11,24 +11,48 @@
     "model": "bot.bottext",
     "fields": {
       "label": "downloading-file",
-      "ru": "☑️Скачиваем файл...",
-      "en": "☑️Downloading file..."
+      "ru": "Скачиваем файл...",
+      "en": "Downloading file..."
+    }
+  },
+  {
+    "model": "bot.bottext",
+    "fields": {
+      "label": "downloading-file-done",
+      "ru": "Файл скачан",
+      "en": "Download complete"
     }
   },
   {
     "model": "bot.bottext",
     "fields": {
       "label": "extracting-text",
-      "ru": "✅️Файл скачан\n☑️Извлекаем текст...",
-      "en": "✅️Download complete\n☑️Extracting text..."
+      "ru": "Извлекаем текст...",
+      "en": "Extracting text..."
+    }
+  },
+  {
+    "model": "bot.bottext",
+    "fields": {
+      "label": "extracting-text-done",
+      "ru": "Текст прочитан: {}",
+      "en": "Text is extracted: {}"
     }
   },
   {
     "model": "bot.bottext",
     "fields": {
       "label": "summarizing",
-      "ru": "✅️Файл скачан\n✅️Текст прочитан: {}\n☑️Извлекаем краткое содержание...",
-      "en": "✅️Download complete\n✅️Text is extracted: {}\n☑️Summarizing..."
+      "ru": "Извлекаем краткое содержание...",
+      "en": "Summarizing..."
+    }
+  },
+  {
+    "model": "bot.bottext",
+    "fields": {
+      "label": "summarizing-done",
+      "ru": "Краткое содержание готово",
+      "en": "Summarizing completed"
     }
   },
   {
@@ -42,17 +66,17 @@
   {
     "model": "bot.bottext",
     "fields": {
-      "label": "language-set",
-      "ru": "Выбран русский язык",
-      "en": "English language is set"
+      "label": "again",
+      "ru": "Отправить файл ещё раз",
+      "en": "Summarize this file again"
     }
   },
   {
     "model": "bot.bottext",
     "fields": {
-      "label": "page-summary",
-      "ru": "Часть {}\n\n{}",
-      "en": "Part {}\n\n{}"
+      "label": "language-set",
+      "ru": "Выбран русский язык",
+      "en": "English language is set"
     }
   }
 ]

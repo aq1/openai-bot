@@ -3,9 +3,15 @@ from django.db import models
 
 class File(models.Model):
 
-    file_id = models.CharField(
+    id = models.CharField(
         max_length=100,
         primary_key=True,
+    )
+
+    telegram_file_id = models.CharField(
+        max_length=255,
+        default='',
+        blank=True,
     )
 
     user = models.ForeignKey(
@@ -15,14 +21,19 @@ class File(models.Model):
 
     title = models.CharField(
         max_length=1000,
+        default='',
+        blank=True,
     )
 
     content = models.FileField(
         upload_to='files',
+        null=True,
+        blank=True,
     )
 
-    summary = models.JSONField(
-        default=dict,
+    tokens = models.PositiveIntegerField(
+        default=0,
+        blank=True,
     )
 
     created_at = models.DateTimeField(
