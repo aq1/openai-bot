@@ -1,3 +1,4 @@
+import asyncio
 from typing import TypedDict
 
 from .stage import Stage
@@ -19,11 +20,13 @@ class SummarizeChunks(Stage[In, Out]):
 
     async def __call__(self, data: In) -> Out:
         result = []
-        for content in data['content']:
-            result.append((await self.stage({
-                'content': content,
-            }))['content'])
+        async with asyncio.TaskGroup() as tg:
+            for content in data['content']:
+                task = tg.create_task(self.stage({
+                    'content': content,
+                }))
+                result.append(task)
 
         return {
-            'content': result
+            'content': [t.result()['content'] for t in result]
         }

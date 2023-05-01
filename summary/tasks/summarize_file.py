@@ -45,12 +45,12 @@ async def summarize_file(file_id: str, telegram_file_id: str, language: str, cha
                             max_parts=1,
                         ),
                         SummarizeText(language=language),
-                    ]
+                    ],
                 ),
                 false_stage=Idle()
             ),
             JoinText(),
-        ]
+        ],
     )
 
     result = await summarize_pipeline(data={'file_id': file_id, 'telegram_file_id': telegram_file_id})
