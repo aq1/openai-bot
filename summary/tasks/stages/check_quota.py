@@ -31,6 +31,6 @@ class CheckQuota(Stage):
         ))['s']
 
         if tokens >= self.quota:
-            raise StopPipeline(_('You exceeded 24-hour quota. Try again later.'))
+            raise StopPipeline(_('😢 You exceeded 24-hour quota. Try again later.'))
 
         return data

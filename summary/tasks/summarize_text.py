@@ -12,28 +12,26 @@ from .stages import (
     SummarizeChunks,
     IfStage,
     Idle,
-    DownloadTelegramFile,
-    ReadFile,
     SummarizeText,
     SplitByTokensLength,
     JoinText,
     TelegramNotification,
     CheckQuota,
+    CheckLength,
 )
 
 
 class In(TypedDict):
-    telegram_file_id: str
+    content: str
 
 
 class Out(TypedDict):
     content: str
 
 
-async def summarize_file(
+async def summarize_text(
         user_id: int,
-        file_id: str,
-        telegram_file_id: str,
+        text: str,
         language: str,
         chat_id: int,
         message_id: int,
@@ -44,7 +42,7 @@ async def summarize_file(
         message_id=message_id,
     )
 
-    summarize_text = SummarizeText(
+    summarize_text_stage = SummarizeText(
         language=language,
         user_id=user_id,
     )
@@ -55,50 +53,21 @@ async def summarize_file(
                 user_id=user_id,
                 quota=settings.OPENAI_DAILY_QUOTA,
             ),
-            notify(
-                text=(
-                    '☑️{}\n'
-                    '◽️{}\n'
-                    '◽️{}\n'
-                ).format(
-                    _('Downloading file...'),
-                    _('Extracting text...'),
-                    _('Summarizing...'),
-                ),
-            ),
-            DownloadTelegramFile(
-                token=settings.TELEGRAM_TOKEN,
-                user_id=user_id,
+            CheckLength(
+                min_length=settings.MIN_TEXT_LENGTH,
             ),
             notify(
                 text=(
-                    '✅{}\n'
-                    '☑️{}\n'
-                    '◽️{}\n'
-                ).format(
-                    _('Download completed'),
-                    _('Extracting text...'),
-                    _('Summarizing...')
-                ),
-            ),
-            ReadFile(),
-            notify(
-                text=(
-                    '✅{}\n'
-                    '✅{}\n'
                     '☑️{}\n'
                 ).format(
-                    _('Download completed'),
-                    _('Text is extracted'),
                     _('Summarizing...'),
                 ),
             ),
             SplitByTokensLength(
                 max_tokens=settings.MAX_TOKENS_PER_PART,
                 max_parts=settings.MAX_TEXT_PARTS,
-                file_id=file_id,
             ),
-            SummarizeChunks(summarize_stage=summarize_text),
+            SummarizeChunks(summarize_stage=summarize_text_stage),
             IfStage(
                 condition=lambda data: len(data['content']) > 1,
                 true_stage=Pipeline(
@@ -108,7 +77,7 @@ async def summarize_file(
                             max_tokens=settings.MAX_TOKENS_PER_PART,
                             max_parts=1,
                         ),
-                        summarize_text,
+                        summarize_text_stage,
                     ],
                 ),
                 false_stage=Idle(),
@@ -117,11 +86,7 @@ async def summarize_file(
             notify(
                 text=(
                     '✅{}\n'
-                    '✅{}\n'
-                    '✅{}\n'
                 ).format(
-                    _('Download completed'),
-                    _('Text is extracted'),
                     _('Summarizing completed'),
                 ),
             ),
@@ -129,7 +94,7 @@ async def summarize_file(
     )
 
     try:
-        return await summarize_pipeline(data={'file_id': file_id, 'telegram_file_id': telegram_file_id})
+        return await summarize_pipeline(data={'content': text})
     except StopPipeline as e:
         await notify(str(e))(data=None)
         return {

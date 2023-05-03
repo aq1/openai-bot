@@ -11,7 +11,9 @@ async def start(update: Update, __: L10nContext):
         text=_(
             'With this bot, you can easily extract short summaries from PDF, TXT and DOCX files in seconds. '
             'Simply upload the file you want to extract a summary from, '
-            'and our bot will take care of the rest'
+            'and our bot will take care of the rest.\n\n'
+            'It can also summarize messages you send or forward.\n\n'
+            'Type /feedback for bugs/questions/feedback.'
         ),
         reply_markup=InlineKeyboardMarkup.from_row([
             InlineKeyboardButton(

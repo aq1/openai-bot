@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-03 22:56+0300\n"
+"POT-Creation-Date: 2023-05-03 23:25+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,14 +41,29 @@ msgstr "Отменить"
 msgid ""
 "With this bot, you can easily extract short summaries from PDF, TXT and DOCX "
 "files in seconds. Simply upload the file you want to extract a summary from, "
-"and our bot will take care of the rest"
+"and our bot will take care of the rest.\n"
+"\n"
+"It can also summarize messages you send or forward.\n"
+"\n"
+"Type /feedback for bugs/questions/feedback."
 msgstr ""
 "С помощью этого бота вы можете легко извлекать краткое содержание из PDF, "
 "TXT и DOCX файлов за считанные секунды. Просто загрузите файл, из которого "
-"вы хотите извлечь содержание, и наш бот сделает все остальное."
+"вы хотите извлечь содержание, и наш бот сделает все остальное.\n"
+"\n"
+"Также можно просто отправить или переслать сообщение.\n"
+"\n"
+"Напишите /feedback чтобы написать о баге или задать вопрос."
+
+#: .\summary\tasks\stages\check_length.py:18
+msgid ""
+"🤔 This text looks too short. It probably does not need to be summarized."
+msgstr "🤔 Кажется этому тексту не нужно краткое содержание."
 
 #: .\summary\tasks\stages\check_quota.py:34
-msgid "You exceeded 24-hour quota. Try again later."
+#, fuzzy
+#| msgid "You exceeded 24-hour quota. Try again later."
+msgid "😢 You exceeded 24-hour quota. Try again later."
 msgstr "Превышена дневная квота. Попробуйте завтра."
 
 #: .\summary\tasks\stages\download_telegram_file.py:48
@@ -60,7 +75,9 @@ msgid "Sorry, Telegram does not allow bots to download files bigger than 20mb"
 msgstr "Извините, Телеграм не разрешает ботам качать файлы больше 20мб"
 
 #: .\summary\tasks\stages\read_file.py:41
-msgid "This file format is not supported."
+#, fuzzy
+#| msgid "This file format is not supported."
+msgid "🥺 This file format is not supported."
 msgstr "Этот формат файла не поддерживается"
 
 #: .\summary\tasks\summarize_file.py:64
@@ -72,7 +89,7 @@ msgid "Extracting text..."
 msgstr "Извлекаем текст..."
 
 #: .\summary\tasks\summarize_file.py:66 .\summary\tasks\summarize_file.py:81
-#: .\summary\tasks\summarize_file.py:93
+#: .\summary\tasks\summarize_file.py:93 .\summary\tasks\summarize_text.py:63
 msgid "Summarizing..."
 msgstr "Извлекаем краткое содержание..."
 
@@ -85,6 +102,6 @@ msgstr "Файл скачан"
 msgid "Text is extracted"
 msgstr "Текст прочитан"
 
-#: .\summary\tasks\summarize_file.py:125
+#: .\summary\tasks\summarize_file.py:125 .\summary\tasks\summarize_text.py:90
 msgid "Summarizing completed"
 msgstr "Краткое содержание готово"

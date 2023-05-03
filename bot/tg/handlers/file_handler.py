@@ -3,7 +3,7 @@ from telegram.ext import MessageHandler, filters
 
 from django.utils.translation import gettext as _
 
-from summary.tasks.summarize_file import summarize_file
+from summary.tasks import summarize_file
 from summary.models import File
 
 from .l10n_context import L10nContext
