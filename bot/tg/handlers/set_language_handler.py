@@ -1,4 +1,7 @@
 from django.conf import settings
+from django.utils.translation import (
+    activate,
+)
 from telegram import Update
 from telegram.ext import CallbackQueryHandler
 
@@ -18,6 +21,7 @@ async def set_language(update: Update, context: L10nContext):
         language=lang,
     )
 
+    activate(lang)
     await update.effective_message.delete()
     await start(update, context)
 

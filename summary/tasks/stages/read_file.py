@@ -1,8 +1,13 @@
 import os
 from typing import TypedDict, BinaryIO, Callable
 
+from django.utils.translation import gettext as _
+
 from .stage import (
     Stage,
+)
+
+from .exceptions import (
     StopPipeline,
 )
 
@@ -33,7 +38,7 @@ class ReadFile(Stage[In, Out]):
     async def __call__(self, data: In) -> Out:
         reader = readers.get(os.path.splitext(data['title'])[1])
         if not reader:
-            raise StopPipeline('invalid_file_format')
+            raise StopPipeline(_('This file format is not supported.'))
 
         return {
             'content': reader(data['content']).strip()

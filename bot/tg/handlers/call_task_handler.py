@@ -9,6 +9,8 @@ from .l10n_context import L10nContext
 
 
 async def call_task(update: Update, context: L10nContext):
+    update.callback_query.answer()
+
     _file = await File.objects.filter(
         id=context.match.group(1),
     ).afirst()
@@ -29,7 +31,7 @@ async def call_task(update: Update, context: L10nContext):
         text=result['content'],
         reply_markup=InlineKeyboardMarkup.from_button(
             InlineKeyboardButton(
-                text=_('Again'),
+                text=_('Run again'),
                 callback_data=f'summarize_file_{_file.id}',
             ),
         ),

@@ -64,6 +64,7 @@ class DownloadTelegramFile(Stage[In, Out]):
             ),
         )
 
+        _bytes.seek(0)
         return {
             'title': title,
             'content': _bytes,

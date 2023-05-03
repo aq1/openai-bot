@@ -22,7 +22,7 @@ async def file(update: Update, __: L10nContext):
         text=result['content'],
         reply_markup=InlineKeyboardMarkup.from_button(
             InlineKeyboardButton(
-                text=_('Again'),
+                text=_('Run again'),
                 callback_data=f'summarize_file_{d.file_unique_id}',
             ),
         ),

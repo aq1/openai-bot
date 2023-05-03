@@ -3,6 +3,10 @@ from typing import TypedDict
 from django.conf import settings
 from django.utils.translation import gettext as _
 
+from .stages.exceptions import (
+    StopPipeline,
+)
+
 from .stages import (
     Pipeline,
     SummarizeChunks,
@@ -14,6 +18,7 @@ from .stages import (
     SplitByTokensLength,
     JoinText,
     TelegramNotification,
+    CheckQuota,
 )
 
 
@@ -22,7 +27,7 @@ class In(TypedDict):
 
 
 class Out(TypedDict):
-    telegram_file_id: str
+    content: str
 
 
 async def summarize_file(
@@ -32,7 +37,7 @@ async def summarize_file(
         language: str,
         chat_id: int,
         message_id: int,
-):
+) -> Out:
     notify = TelegramNotification(
         token=settings.TELEGRAM_TOKEN,
         chat_id=chat_id,
@@ -46,6 +51,10 @@ async def summarize_file(
 
     summarize_pipeline: Pipeline[In, Out] = Pipeline(
         stages=[
+            CheckQuota(
+                user_id=user_id,
+                quota=settings.OPENAI_DAILY_QUOTA,
+            ),
             notify(
                 text=(
                     '☑️{}\n'
@@ -119,4 +128,9 @@ async def summarize_file(
         ],
     )
 
-    return await summarize_pipeline(data={'file_id': file_id, 'telegram_file_id': telegram_file_id})
+    try:
+        return await summarize_pipeline(data={'file_id': file_id, 'telegram_file_id': telegram_file_id})
+    except StopPipeline as e:
+        return {
+            'content': str(e),
+        }

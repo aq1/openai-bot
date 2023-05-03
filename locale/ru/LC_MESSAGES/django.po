@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-03 13:36+0300\n"
+"POT-Creation-Date: 2023-05-03 16:13+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,28 +20,51 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: .\summary\tasks\summarize_file.py:44
+#: .\bot\tg\handlers\call_task_handler.py:34
+#: .\bot\tg\handlers\file_handler.py:25
+msgid "Run again"
+msgstr "Запустить ещё раз"
+
+#: .\bot\tg\handlers\start_handler.py:12
+msgid ""
+"With this bot, you can easily extract short summaries from PDF, TXT and DOCX "
+"files in seconds. Simply upload the file you want to extract a summary from, "
+"and our bot will take care of the rest"
+msgstr ""
+"С помощью этого бота вы можете легко извлекать краткое содержание из PDF, "
+"TXT и DOCX файлов за считанные секунды. Просто загрузите файл, из которого "
+"вы хотите извлечь содержание, и наш бот сделает все остальное."
+
+#: .\summary\tasks\stages\check_quota.py:30
+msgid "You exceeded 24-hour quota. Try again later."
+msgstr "Превышена дневная квота. Попробуйте завтра."
+
+#: .\summary\tasks\stages\read_file.py:41
+msgid "This file format is not supported."
+msgstr "Этот формат файла не поддерживается"
+
+#: .\summary\tasks\summarize_file.py:64
 msgid "Downloading file..."
 msgstr "Скачиваем файл..."
 
-#: .\summary\tasks\summarize_file.py:45 .\summary\tasks\summarize_file.py:59
+#: .\summary\tasks\summarize_file.py:65 .\summary\tasks\summarize_file.py:80
 msgid "Extracting text..."
 msgstr "Извлекаем текст..."
 
-#: .\summary\tasks\summarize_file.py:46 .\summary\tasks\summarize_file.py:60
-#: .\summary\tasks\summarize_file.py:72
+#: .\summary\tasks\summarize_file.py:66 .\summary\tasks\summarize_file.py:81
+#: .\summary\tasks\summarize_file.py:93
 msgid "Summarizing..."
 msgstr "Извлекаем краткое содержание..."
 
-#: .\summary\tasks\summarize_file.py:58 .\summary\tasks\summarize_file.py:70
-#: .\summary\tasks\summarize_file.py:101
+#: .\summary\tasks\summarize_file.py:79 .\summary\tasks\summarize_file.py:91
+#: .\summary\tasks\summarize_file.py:123
 msgid "Download complete"
 msgstr "Файл скачан"
 
-#: .\summary\tasks\summarize_file.py:71 .\summary\tasks\summarize_file.py:102
+#: .\summary\tasks\summarize_file.py:92 .\summary\tasks\summarize_file.py:124
 msgid "Text is extracted"
 msgstr "Текст прочитан"
 
-#: .\summary\tasks\summarize_file.py:103
+#: .\summary\tasks\summarize_file.py:125
 msgid "Summarizing completed"
 msgstr "Краткое содержание готово"
