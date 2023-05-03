@@ -76,7 +76,7 @@ async def summarize_file(
                     '☑️{}\n'
                     '◽️{}\n'
                 ).format(
-                    _('Download complete'),
+                    _('Download completed'),
                     _('Extracting text...'),
                     _('Summarizing...')
                 ),
@@ -88,7 +88,7 @@ async def summarize_file(
                     '✅{}\n'
                     '☑️{}\n'
                 ).format(
-                    _('Download complete'),
+                    _('Download completed'),
                     _('Text is extracted'),
                     _('Summarizing...'),
                 ),
@@ -120,7 +120,7 @@ async def summarize_file(
                     '✅{}\n'
                     '✅{}\n'
                 ).format(
-                    _('Download complete'),
+                    _('Download completed'),
                     _('Text is extracted'),
                     _('Summarizing completed'),
                 ),

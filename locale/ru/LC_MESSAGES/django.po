@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-03 22:31+0300\n"
+"POT-Creation-Date: 2023-05-03 22:56+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -56,7 +56,6 @@ msgid "Failed to download file"
 msgstr "При скачивании файла произошла ошибка"
 
 #: .\summary\tasks\stages\download_telegram_file.py:50
-#| msgid "Sorry, Telegram do not allow to download files bigger than 20mb"
 msgid "Sorry, Telegram does not allow bots to download files bigger than 20mb"
 msgstr "Извините, Телеграм не разрешает ботам качать файлы больше 20мб"
 
@@ -79,7 +78,7 @@ msgstr "Извлекаем краткое содержание..."
 
 #: .\summary\tasks\summarize_file.py:79 .\summary\tasks\summarize_file.py:91
 #: .\summary\tasks\summarize_file.py:123
-msgid "Download complete"
+msgid "Download completed"
 msgstr "Файл скачан"
 
 #: .\summary\tasks\summarize_file.py:92 .\summary\tasks\summarize_file.py:124
