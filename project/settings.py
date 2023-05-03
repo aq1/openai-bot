@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
-import axiom
 import environ
 
 env = environ.Env()
@@ -130,6 +129,7 @@ LOGGING = {
 }
 
 if env.bool('USE_AXIOM', default=False):
+    import axiom
     LOGGING['handlers']['axiom'] = {
         'class': 'axiom.logging.AxiomHandler',
         'formatter': 'json',
