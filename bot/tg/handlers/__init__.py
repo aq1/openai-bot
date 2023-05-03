@@ -4,6 +4,7 @@ from . import (
     log_handler,
     file_handler,
     set_language_handler,
+    call_task_handler,
 )
 
 __all__ = [
@@ -15,6 +16,7 @@ HANDLER_GROUPS = (
         start_handler.handler,
         file_handler.handler,
         set_language_handler.handler,
+        call_task_handler.handler,
     ),
     (
         db_log_handler.handler,

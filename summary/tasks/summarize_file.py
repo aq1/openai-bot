@@ -102,7 +102,7 @@ async def summarize_file(
                         summarize_text,
                     ],
                 ),
-                false_stage=Idle()
+                false_stage=Idle(),
             ),
             JoinText(),
             notify(

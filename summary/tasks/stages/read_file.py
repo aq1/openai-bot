@@ -9,6 +9,7 @@ from .stage import (
 from ...readers import (
     pdf,
     docx,
+    txt,
 )
 
 
@@ -24,6 +25,7 @@ class Out(TypedDict):
 readers: dict[str, Callable[[BinaryIO], str]] = {
     '.pdf': pdf.read,
     '.docx': docx.read,
+    '.txt': txt.read,
 }
 
 
