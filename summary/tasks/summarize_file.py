@@ -131,6 +131,7 @@ async def summarize_file(
     try:
         return await summarize_pipeline(data={'file_id': file_id, 'telegram_file_id': telegram_file_id})
     except StopPipeline as e:
+        await notify(f'😢 {e}')(data=None)
         return {
-            'content': str(e),
+            'content': '',
         }

@@ -30,6 +30,9 @@ async def file(update: Update, context: L10nContext):
         message_id=update.effective_message.id,
     )
 
+    if not result['content']:
+        return
+
     await update.effective_message.reply_text(
         text=result['content'],
         reply_markup=InlineKeyboardMarkup.from_button(

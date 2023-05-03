@@ -4,9 +4,11 @@ from typing import TypedDict, BinaryIO
 
 import telegram
 from django.core.files.base import ContentFile
+from django.utils.translation import gettext as _
 
 from ...models import File
 
+from .exceptions import StopPipeline
 from .stage import Stage
 
 
@@ -38,9 +40,15 @@ class DownloadTelegramFile(Stage[In, Out]):
                 'content': _file.content.file,
             }
 
-        document = await telegram.Bot(self.token).get_file(
-            file_id=data['telegram_file_id'],
-        )
+        try:
+            document = await telegram.Bot(self.token).get_file(
+                file_id=data['telegram_file_id'],
+            )
+        except telegram.error.BadRequest as e:
+            msg = _('Failed to download file')
+            if e.message == 'File is too big':
+                msg = _('Sorry, Telegram do not allow to download files bigger than 20mb')
+            raise StopPipeline(msg)
 
         _bytes = io.BytesIO()
         await document.download_to_memory(out=_bytes)
