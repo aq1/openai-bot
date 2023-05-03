@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-03 22:20+0300\n"
+"POT-Creation-Date: 2023-05-03 22:31+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: .\bot\tg\handlers\call_task_handler.py:34
-#: .\bot\tg\handlers\file_handler.py:37
+#: .\bot\tg\handlers\file_handler.py:40
 msgid "Run again"
 msgstr "Запустить ещё раз"
 
@@ -51,12 +51,13 @@ msgstr ""
 msgid "You exceeded 24-hour quota. Try again later."
 msgstr "Превышена дневная квота. Попробуйте завтра."
 
-#: .\summary\tasks\stages\download_telegram_file.py:47
+#: .\summary\tasks\stages\download_telegram_file.py:48
 msgid "Failed to download file"
-msgstr ""
+msgstr "При скачивании файла произошла ошибка"
 
-#: .\summary\tasks\stages\download_telegram_file.py:49
-msgid "Sorry, Telegram do not allow to download files bigger than 20mb"
+#: .\summary\tasks\stages\download_telegram_file.py:50
+#| msgid "Sorry, Telegram do not allow to download files bigger than 20mb"
+msgid "Sorry, Telegram does not allow bots to download files bigger than 20mb"
 msgstr "Извините, Телеграм не разрешает ботам качать файлы больше 20мб"
 
 #: .\summary\tasks\stages\read_file.py:41

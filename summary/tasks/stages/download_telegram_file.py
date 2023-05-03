@@ -47,7 +47,7 @@ class DownloadTelegramFile(Stage[In, Out]):
         except telegram.error.BadRequest as e:
             msg = _('Failed to download file')
             if e.message == 'File is too big':
-                msg = _('Sorry, Telegram do not allow to download files bigger than 20mb')
+                msg = _('Sorry, Telegram does not allow to download files bigger than 20mb')
             raise StopPipeline(msg)
 
         _bytes = io.BytesIO()
