@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-03 16:13+0300\n"
+"POT-Creation-Date: 2023-05-03 18:54+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,9 +21,21 @@ msgstr ""
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: .\bot\tg\handlers\call_task_handler.py:34
-#: .\bot\tg\handlers\file_handler.py:25
+#: .\bot\tg\handlers\file_handler.py:37
 msgid "Run again"
 msgstr "Запустить ещё раз"
+
+#: .\bot\tg\handlers\feedback_handler.py:14
+msgid "Your feedback is received. Thank you."
+msgstr "Ваше сообщение получено. Спасибо."
+
+#: .\bot\tg\handlers\feedback_handler.py:34
+msgid "Please share your feedback with us"
+msgstr "О чём вы хотели написать?"
+
+#: .\bot\tg\handlers\feedback_handler.py:37
+msgid "Cancel"
+msgstr "Отменить"
 
 #: .\bot\tg\handlers\start_handler.py:12
 msgid ""
@@ -35,7 +47,7 @@ msgstr ""
 "TXT и DOCX файлов за считанные секунды. Просто загрузите файл, из которого "
 "вы хотите извлечь содержание, и наш бот сделает все остальное."
 
-#: .\summary\tasks\stages\check_quota.py:30
+#: .\summary\tasks\stages\check_quota.py:34
 msgid "You exceeded 24-hour quota. Try again later."
 msgstr "Превышена дневная квота. Попробуйте завтра."
 

@@ -1,6 +1,7 @@
 from telegram import Update, ReplyKeyboardRemove, ReplyKeyboardMarkup, KeyboardButton
 from telegram.ext import ConversationHandler, CommandHandler, MessageHandler, filters
 
+from django.utils import translation
 from django.utils.translation import gettext as _
 
 from ...models import TelegramUser
@@ -49,6 +50,11 @@ async def cancel_feedback(update: Update, __: L10nContext):
     )
 
 
+def gettext_in(language, s):
+    with translation.override(language):
+        return translation.gettext(s)
+
+
 handler = ConversationHandler(
     entry_points=[
         CommandHandler(
@@ -60,8 +66,8 @@ handler = ConversationHandler(
         FEEDBACK: [
             MessageHandler(
                 filters=filters.Text([
-                    'Отмена',
-                    'Cancel',
+                    gettext_in('ru', 'Cancel'),
+                    gettext_in('en', 'Cancel'),
                 ]),
                 callback=cancel_feedback,
             ),
