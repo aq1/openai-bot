@@ -14,7 +14,8 @@ class Out(TypedDict):
 
 class SummarizeText(Stage[In, Out]):
 
-    def __init__(self, language: str):
+    def __init__(self, user_id: int, language: str):
+        self.user_id = user_id
         self.language = language
 
     async def summarize_text(self, text: str) -> str:
@@ -24,6 +25,7 @@ class SummarizeText(Stage[In, Out]):
         }[self.language]
 
         response = await create_chat_completion(
+            user_id=self.user_id,
             model='gpt-3.5-turbo',
             messages=[
                 {'role': 'user', 'content': f'{command}\n\n{text}'},

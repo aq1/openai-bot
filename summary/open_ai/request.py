@@ -1,4 +1,5 @@
 import logging
+from functools import wraps
 
 import openai
 from django.conf import settings
@@ -11,9 +12,11 @@ openai.api_key = settings.OPENAI_KEY
 
 
 def log_to_db(func):
-    async def _f(*args, **kwargs):
+    @wraps(func)
+    async def _f(user_id: int, *args, **kwargs):
         response = await func(*args, **kwargs)
         await OpenAICall.objects.acreate(
+            user_id=user_id,
             request={
                 'args': args,
                 'kwargs': kwargs,

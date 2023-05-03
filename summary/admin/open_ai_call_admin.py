@@ -9,6 +9,7 @@ from ..models import OpenAICall
 @admin.register(OpenAICall)
 class OpenAICallAdmin(admin.ModelAdmin):
     list_display = (
+        'user',
         'created_at',
         'tokens',
         'tokens_price',
@@ -21,6 +22,11 @@ class OpenAICallAdmin(admin.ModelAdmin):
     formfield_overrides = {
         models.JSONField: {'widget': JSONEditorWidget(mode='tree')},
     }
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).select_related(
+            'user',
+        )
 
     @admin.display(description='Cost', ordering='tokens')
     def tokens_price(self, obj: OpenAICall):

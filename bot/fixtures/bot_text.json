@@ -35,8 +35,8 @@
     "model": "bot.bottext",
     "fields": {
       "label": "extracting-text-done",
-      "ru": "Текст прочитан: {}",
-      "en": "Text is extracted: {}"
+      "ru": "Текст прочитан",
+      "en": "Text is extracted"
     }
   },
   {

@@ -2,6 +2,11 @@ from django.db import models
 
 
 class OpenAICall(models.Model):
+    user = models.ForeignKey(
+        to='bot.User',
+        on_delete=models.RESTRICT,
+    )
+
     request = models.JSONField(
         default=dict,
         blank=True,

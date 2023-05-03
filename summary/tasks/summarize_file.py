@@ -1,6 +1,7 @@
 from typing import TypedDict
 
 from django.conf import settings
+from django.utils.translation import gettext as _
 
 from .stages import (
     Pipeline,
@@ -12,6 +13,7 @@ from .stages import (
     SummarizeText,
     SplitByTokensLength,
     JoinText,
+    TelegramNotification,
 )
 
 
@@ -23,18 +25,71 @@ class Out(TypedDict):
     telegram_file_id: str
 
 
-async def summarize_file(file_id: str, telegram_file_id: str, language: str, chat_id: int, message_id: int):
+async def summarize_file(
+        user_id: int,
+        file_id: str,
+        telegram_file_id: str,
+        language: str,
+        chat_id: int,
+        message_id: int,
+):
+    notify = TelegramNotification(
+        token=settings.TELEGRAM_TOKEN,
+        chat_id=chat_id,
+        message_id=message_id,
+    )
+
+    summarize_text = SummarizeText(
+        language=language,
+        user_id=user_id,
+    )
+
     summarize_pipeline: Pipeline[In, Out] = Pipeline(
         stages=[
+            notify(
+                text=(
+                    '☑️{}\n'
+                    '◽️{}\n'
+                    '◽️{}\n'
+                ).format(
+                    _('Downloading file...'),
+                    _('Extracting text...'),
+                    _('Summarizing...'),
+                ),
+            ),
             DownloadTelegramFile(
                 token=settings.TELEGRAM_TOKEN,
+                user_id=user_id,
+            ),
+            notify(
+                text=(
+                    '✅{}\n'
+                    '☑️{}\n'
+                    '◽️{}\n'
+                ).format(
+                    _('Download complete'),
+                    _('Extracting text...'),
+                    _('Summarizing...')
+                ),
             ),
             ReadFile(),
+            notify(
+                text=(
+                    '✅{}\n'
+                    '✅{}\n'
+                    '☑️{}\n'
+                ).format(
+                    _('Download complete'),
+                    _('Text is extracted'),
+                    _('Summarizing...'),
+                ),
+            ),
             SplitByTokensLength(
                 max_tokens=settings.MAX_TOKENS_PER_PART,
                 max_parts=settings.MAX_TEXT_PARTS,
+                file_id=file_id,
             ),
-            SummarizeChunks(language=language),
+            SummarizeChunks(summarize_stage=summarize_text),
             IfStage(
                 condition=lambda data: len(data['content']) > 1,
                 true_stage=Pipeline(
@@ -44,15 +99,24 @@ async def summarize_file(file_id: str, telegram_file_id: str, language: str, cha
                             max_tokens=settings.MAX_TOKENS_PER_PART,
                             max_parts=1,
                         ),
-                        SummarizeText(language=language),
+                        summarize_text,
                     ],
                 ),
                 false_stage=Idle()
             ),
             JoinText(),
+            notify(
+                text=(
+                    '✅{}\n'
+                    '✅{}\n'
+                    '✅{}\n'
+                ).format(
+                    _('Download complete'),
+                    _('Text is extracted'),
+                    _('Summarizing completed'),
+                ),
+            ),
         ],
     )
 
-    result = await summarize_pipeline(data={'file_id': file_id, 'telegram_file_id': telegram_file_id})
-
-    return result['content']
+    return await summarize_pipeline(data={'file_id': file_id, 'telegram_file_id': telegram_file_id})

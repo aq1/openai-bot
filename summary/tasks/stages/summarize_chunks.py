@@ -15,8 +15,8 @@ class Out(TypedDict):
 
 class SummarizeChunks(Stage[In, Out]):
 
-    def __init__(self, language: str):
-        self.stage = SummarizeText(language=language)
+    def __init__(self, summarize_stage: Stage):
+        self.stage = summarize_stage
 
     async def __call__(self, data: In) -> Out:
         result = []
