@@ -1,11 +1,11 @@
-from .user import User
+from .telegram_user import TelegramUser
 from .chat import Chat
 from .message import Message
 from .update import Update
 
 
 __all__ = [
-    'User',
+    'TelegramUser',
     'Chat',
     'Message',
     'Update',

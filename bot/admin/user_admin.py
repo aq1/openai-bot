@@ -2,10 +2,10 @@ from django.contrib import admin
 from django.db import models
 from django_json_widget.widgets import JSONEditorWidget
 
-from ..models import User
+from ..models import TelegramUser
 
 
-@admin.register(User)
+@admin.register(TelegramUser)
 class UserAdmin(admin.ModelAdmin):
     list_display = (
         '__str__',
@@ -14,6 +14,13 @@ class UserAdmin(admin.ModelAdmin):
 
     ordering = (
         '-updated_at',
+    )
+
+    search_fields = (
+        'id',
+        'username',
+        'first_name',
+        'last_name',
     )
 
     formfield_overrides = {

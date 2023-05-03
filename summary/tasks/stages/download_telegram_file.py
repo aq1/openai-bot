@@ -29,7 +29,7 @@ class DownloadTelegramFile(Stage[In, Out]):
         _file: File | None = await File.objects.filter(
             telegram_file_id=data['telegram_file_id'],
         ).exclude(
-            content=None,
+            content='',
         ).afirst()
 
         if _file:

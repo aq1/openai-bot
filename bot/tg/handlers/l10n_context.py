@@ -2,7 +2,7 @@ from django.conf import settings
 from django.utils.translation import activate
 from telegram.ext import CallbackContext, ExtBot, Application
 
-from ...models import User
+from ...models import TelegramUser
 
 
 class L10nContext(CallbackContext[ExtBot, dict, dict, dict]):
@@ -12,7 +12,7 @@ class L10nContext(CallbackContext[ExtBot, dict, dict, dict]):
         self.language: str = settings.DEFAULT_LANGUAGE
 
     async def refresh_data(self) -> None:
-        user = await User.objects.filter(id=self.user_id).afirst()
+        user = await TelegramUser.objects.filter(id=self.user_id).afirst()
         if user:
             self.language = user.language
 

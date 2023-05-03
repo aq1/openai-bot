@@ -13,7 +13,7 @@ class Message(models.Model):
     )
 
     user = models.ForeignKey(
-        to='bot.User',
+        to='bot.TelegramUser',
         on_delete=models.CASCADE,
         related_name='messages',
     )

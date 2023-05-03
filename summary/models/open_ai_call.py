@@ -3,7 +3,7 @@ from django.db import models
 
 class OpenAICall(models.Model):
     user = models.ForeignKey(
-        to='bot.User',
+        to='bot.TelegramUser',
         on_delete=models.RESTRICT,
     )
 

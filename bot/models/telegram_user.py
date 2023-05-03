@@ -2,7 +2,7 @@ from django.db import models
 from django.conf import settings
 
 
-class User(models.Model):
+class TelegramUser(models.Model):
 
     is_bot = models.BooleanField(
         blank=True,
@@ -11,6 +11,11 @@ class User(models.Model):
     is_premium = models.BooleanField(
         blank=True,
         default=False,
+    )
+
+    groups = models.ManyToManyField(
+        to='auth.Group',
+        related_name='telegram_users',
     )
 
     first_name = models.CharField(

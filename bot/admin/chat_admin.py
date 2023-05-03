@@ -12,6 +12,10 @@ class ChatAdmin(admin.ModelAdmin):
         'updated_at',
     )
 
+    search_fields = (
+        'id',
+    )
+
     ordering = (
         '-updated_at',
     )

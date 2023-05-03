@@ -4,16 +4,28 @@ from telegram.ext import MessageHandler, filters
 from django.utils.translation import gettext as _
 
 from summary.tasks.summarize_file import summarize_file
+from summary.models import File
+
 from .l10n_context import L10nContext
 
 
-async def file(update: Update, __: L10nContext):
+async def file(update: Update, context: L10nContext):
     d = update.effective_message.document
+
+    await File.objects.aupdate_or_create(
+        id=d.file_unique_id,
+        defaults=dict(
+            user_id=update.effective_user.id,
+            telegram_file_id=d.file_id,
+            title=d.file_name,
+        ),
+    )
+
     result = await summarize_file(
         user_id=update.effective_user.id,
         file_id=d.file_unique_id,
         telegram_file_id=d.file_id,
-        language='ru',
+        language=context.language,
         chat_id=update.effective_chat.id,
         message_id=update.effective_message.id,
     )

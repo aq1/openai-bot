@@ -5,6 +5,7 @@ from . import (
     file_handler,
     set_language_handler,
     call_task_handler,
+    feedback_handler,
 )
 
 __all__ = [
@@ -17,6 +18,7 @@ HANDLER_GROUPS = (
         file_handler.handler,
         set_language_handler.handler,
         call_task_handler.handler,
+        feedback_handler.handler,
     ),
     (
         db_log_handler.handler,

@@ -1,7 +1,7 @@
 import telegram
 from telegram.ext import MessageHandler, filters
 
-from ...models import Chat, User, Message, Update
+from ...models import Chat, TelegramUser, Message, Update
 
 
 async def db_log(update: telegram.Update, _):
@@ -20,7 +20,7 @@ async def db_log(update: telegram.Update, _):
         ),
     )
 
-    user, _ = await User.objects.aupdate_or_create(
+    user, _ = await TelegramUser.objects.aupdate_or_create(
         id=update.effective_user.id,
         defaults=dict(
             is_bot=bool(update.effective_user.is_bot),

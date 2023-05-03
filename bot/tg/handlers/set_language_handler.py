@@ -5,7 +5,7 @@ from django.utils.translation import (
 from telegram import Update
 from telegram.ext import CallbackQueryHandler
 
-from ...models import User
+from ...models import TelegramUser
 from .l10n_context import L10nContext
 from .start_handler import start
 
@@ -15,7 +15,7 @@ async def set_language(update: Update, context: L10nContext):
     if lang not in settings.BOT_LANGUAGES:
         return
 
-    await User.objects.filter(
+    await TelegramUser.objects.filter(
         id=update.effective_user.id,
     ).aupdate(
         language=lang,

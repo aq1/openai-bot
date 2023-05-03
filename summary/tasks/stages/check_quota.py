@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import functions
 from django.utils import timezone
 from django.utils.translation import gettext as _, activate
 
@@ -23,7 +24,10 @@ class CheckQuota(Stage):
                 microsecond=0,
             ),
         ).aaggregate(
-            s=models.Sum('tokens')
+            s=functions.Coalesce(
+                models.Sum('tokens'),
+                models.Value(0),
+            )
         ))['s']
 
         if tokens >= self.quota:

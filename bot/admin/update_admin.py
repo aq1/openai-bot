@@ -12,6 +12,10 @@ class UpdateAdmin(admin.ModelAdmin):
         'created_at',
     )
 
+    search_fields = (
+        'id',
+    )
+
     ordering = (
         '-id',
     )
