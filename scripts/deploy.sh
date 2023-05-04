@@ -10,7 +10,7 @@ cp scripts/summary_bot.service /etc/systemd/system/
 cp scripts/summary_django.service /etc/systemd/system/
 
 ./manage.py collectstatic --noinput
-./manage.py compilemessages
+./manage.py compilemessages > /dev/null
 ./manage.py migrate
 
 systemctl daemon-reload
