@@ -6,6 +6,7 @@ from . import (
     set_language_handler,
     call_task_handler,
     feedback_handler,
+    mention_handler,
     message_handler,
 )
 
@@ -20,6 +21,7 @@ HANDLER_GROUPS = (
         set_language_handler.handler,
         call_task_handler.handler,
         feedback_handler.handler,
+        mention_handler.handler,
         message_handler.handler,
     ),
     (

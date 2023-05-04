@@ -6,9 +6,7 @@ from summary.tasks import summarize_text
 from .l10n_context import L10nContext
 
 
-async def message(update: Update, context: L10nContext):
-    text = update.effective_message.text or update.effective_message.caption
-
+async def call_summarize_text_task(text: str, update: Update, context: L10nContext):
     if not text:
         return
 
@@ -28,4 +26,12 @@ async def message(update: Update, context: L10nContext):
     )
 
 
-handler = MessageHandler(filters=filters.TEXT | filters.FORWARDED, callback=message)
+async def message(update: Update, context: L10nContext):
+    await call_summarize_text_task(
+        update.effective_message.text or update.effective_message.caption,
+        update,
+        context,
+    )
+
+
+handler = MessageHandler(filters=filters.ChatType.PRIVATE & (filters.TEXT | filters.FORWARDED), callback=message)
