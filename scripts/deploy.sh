@@ -1,6 +1,8 @@
 #!/bin/bash
 cd "/apps/summary-bot/"
 
+git pull
+
 source ".venv/bin/activate"
 pip install -U -r requirements.txt
 
