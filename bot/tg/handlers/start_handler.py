@@ -25,7 +25,8 @@ async def start(update: Update, __: L10nContext):
                 text='🇷🇺',
                 callback_data='set_lang_ru',
             ),
-        ]), )
+        ]),
+    )
 
 
 handler = CommandHandler('start', start)
