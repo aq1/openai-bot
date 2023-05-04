@@ -4,7 +4,7 @@ cd "/apps/summary-bot/"
 git pull
 
 source ".venv/bin/activate"
-pip install -U -r requirements.txt
+pip install -U -q -r requirements.txt
 
 cp scripts/summary_bot.service /etc/systemd/system/
 cp scripts/summary_django.service /etc/systemd/system/
