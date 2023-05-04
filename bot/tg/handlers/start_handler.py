@@ -13,6 +13,7 @@ async def start(update: Update, __: L10nContext):
             'Simply upload the file you want to extract a summary from, '
             'and our bot will take care of the rest.\n\n'
             'It can also summarize messages you send or forward.\n\n'
+            'In group chats reply to message and mention bot to summarize that message.\n\n'
             'Type /feedback for bugs/questions/feedback.'
         ),
         reply_markup=InlineKeyboardMarkup.from_row([
