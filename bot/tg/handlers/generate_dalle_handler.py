@@ -34,4 +34,4 @@ async def generate_dalle(update: Update, context: L10nContext):
     )
 
 
-handler = MessageHandler(filters=filters.TEXT, callback=generate_dalle)
+handler = MessageHandler(filters=filters.ChatType.PRIVATE & filters.TEXT, callback=generate_dalle)
