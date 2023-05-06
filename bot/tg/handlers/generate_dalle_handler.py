@@ -25,6 +25,7 @@ async def generate_dalle(update: Update, context: L10nContext):
 
     await update.effective_message.reply_photo(
         photo=result['url'],
+        caption=result['db_image'].prompt,
         reply_markup=InlineKeyboardMarkup.from_button(
             InlineKeyboardButton(
                 text=_('Try another variation'),
