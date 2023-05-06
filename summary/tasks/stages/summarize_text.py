@@ -31,7 +31,7 @@ class SummarizeText(Stage[In, Out]):
         try:
             response = (await create_chat_completion(
                 user_id=self.user_id,
-                model='gpt-4',
+                model='gpt-3.5-turbo',
                 messages=[
                     {'role': 'user', 'content': f'{command}\n\n{text}'},
                 ],
