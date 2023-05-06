@@ -1,5 +1,5 @@
-from .start_bot import start_bot
+from .bots import BOTS
 
 __all__ = [
-    'start_bot',
+    'BOTS',
 ]

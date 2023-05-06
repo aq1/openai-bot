@@ -11,6 +11,7 @@ async def call_summarize_text_task(text: str, update: Update, context: L10nConte
         return
 
     result = await summarize_text(
+        bot_token=context.bot.token,
         user_id=update.effective_user.id,
         text=text,
         language=context.language,

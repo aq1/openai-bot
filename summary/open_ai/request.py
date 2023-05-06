@@ -47,3 +47,21 @@ async def create_chat_completion(model: str, messages: list[dict[str, str]]):
         model=model,
         messages=messages,
     )
+
+
+@log_to_db
+async def create_image(prompt: str, n: int, size: str):
+    return await openai.Image.acreate(
+        prompt=prompt,
+        n=n,
+        size=size,
+    )
+
+
+@log_to_db
+async def create_image_variation(image: bytes, n: int, size: str):
+    return await openai.Image.acreate_variation(
+        image=image,
+        n=n,
+        size=size,
+    )

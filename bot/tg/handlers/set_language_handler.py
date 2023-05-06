@@ -7,7 +7,7 @@ from telegram.ext import CallbackQueryHandler
 
 from ...models import TelegramUser
 from .l10n_context import L10nContext
-from .start_handler import start
+from .start_handler import start_summary
 
 
 async def set_language(update: Update, context: L10nContext):
@@ -23,7 +23,7 @@ async def set_language(update: Update, context: L10nContext):
 
     activate(lang)
     await update.effective_message.delete()
-    await start(update, context)
+    await start_summary(update, context)
 
 
 handler = CallbackQueryHandler(callback=set_language, pattern=r'set_lang_(\w+)')

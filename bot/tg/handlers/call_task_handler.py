@@ -19,6 +19,7 @@ async def call_task(update: Update, context: L10nContext):
         return
 
     result = await summarize_file(
+        bot_token=context.bot.token,
         user_id=_file.user_id,
         file_id=_file.id,
         telegram_file_id=_file.telegram_file_id,

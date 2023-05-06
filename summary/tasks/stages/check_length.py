@@ -1,12 +1,7 @@
-from django.db import models
-from django.db.models import functions
-from django.utils import timezone
-from django.utils.translation import gettext as _, activate
+from django.utils.translation import gettext as _
 
 from .stage import Stage
 from .exceptions import StopPipeline
-
-from ...models import OpenAICall
 
 
 class CheckLength(Stage):

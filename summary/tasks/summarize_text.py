@@ -30,6 +30,7 @@ class Out(TypedDict):
 
 
 async def summarize_text(
+        bot_token: str,
         user_id: int,
         text: str,
         language: str,
@@ -37,7 +38,7 @@ async def summarize_text(
         message_id: int,
 ) -> Out:
     notify = TelegramNotification(
-        token=settings.TELEGRAM_TOKEN,
+        token=bot_token,
         chat_id=chat_id,
         message_id=message_id,
     )

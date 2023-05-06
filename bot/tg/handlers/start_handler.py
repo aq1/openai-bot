@@ -1,4 +1,5 @@
 from telegram import Update, InlineKeyboardMarkup, InlineKeyboardButton
+from telegram.constants import ParseMode
 from telegram.ext import CommandHandler
 
 from django.utils.translation import gettext as _
@@ -6,7 +7,7 @@ from django.utils.translation import gettext as _
 from .l10n_context import L10nContext
 
 
-async def start(update: Update, __: L10nContext):
+async def start_summary(update: Update, __: L10nContext):
     await update.effective_chat.send_message(
         text=_(
             'With this bot, you can easily extract short summaries from PDF, TXT and DOCX files in seconds. '
@@ -26,7 +27,21 @@ async def start(update: Update, __: L10nContext):
                 callback_data='set_lang_ru',
             ),
         ]),
+        parse_mode=ParseMode.HTML,
     )
 
 
-handler = CommandHandler('start', start)
+async def start_dalle(update: Update, __: L10nContext):
+    await update.effective_chat.send_message(
+        text=_(
+            'With this bot, you can easily generate images with DALL-E AI in seconds.\n\n'
+            '<a href="https://labs.openai.com/">Here</a> you can find example images with prompts.\n\n'
+            'Type /feedback for bugs/questions/feedback.'
+        ),
+        parse_mode=ParseMode.HTML,
+        disable_web_page_preview=True,
+    )
+
+
+summary_start_handler = CommandHandler('start', start_summary)
+dalle_start_handler = CommandHandler('start', start_dalle)

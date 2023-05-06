@@ -1,4 +1,13 @@
+from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
+
+
+class BytesEncoder(DjangoJSONEncoder):
+    def default(self, o):
+        if isinstance(o, bytes):
+            return '[bytes]'
+
+        return super().default(o)
 
 
 class OpenAICall(models.Model):
@@ -10,11 +19,13 @@ class OpenAICall(models.Model):
     request = models.JSONField(
         default=dict,
         blank=True,
+        encoder=BytesEncoder,
     )
 
     response = models.JSONField(
         default=dict,
         blank=True,
+        encoder=BytesEncoder,
     )
 
     tokens = models.PositiveIntegerField(

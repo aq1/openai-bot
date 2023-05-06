@@ -22,6 +22,7 @@ async def file(update: Update, context: L10nContext):
     )
 
     result = await summarize_file(
+        bot_token=context.bot.token,
         user_id=update.effective_user.id,
         file_id=d.file_unique_id,
         telegram_file_id=d.file_id,
