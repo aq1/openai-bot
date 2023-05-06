@@ -4,7 +4,7 @@ cd "/apps/openai-bot/"
 git pull
 
 source ".venv/bin/activate"
-pip install -U -q -r requirements.txt
+pip install -U -r requirements.txt
 
 cp scripts/openai_dalle_bot.service /etc/systemd/system/
 cp scripts/openai_summary_bot.service /etc/systemd/system/
