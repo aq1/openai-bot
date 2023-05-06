@@ -2,7 +2,6 @@ import asyncio
 from typing import TypedDict
 
 from .stage import Stage
-from .summarize_text import SummarizeText
 
 
 class In(TypedDict):
@@ -19,14 +18,13 @@ class SummarizeChunks(Stage[In, Out]):
         self.stage = summarize_stage
 
     async def __call__(self, data: In) -> Out:
-        result = []
-        async with asyncio.TaskGroup() as tg:
-            for content in data['content']:
-                task = tg.create_task(self.stage({
-                    'content': content,
-                }))
-                result.append(task)
+        result = await asyncio.gather(*[
+            self.stage({
+                'content': content,
+            })
+            for content in data['content']
+        ])
 
         return {
-            'content': [t.result()['content'] for t in result]
+            'content': [r['content'] for r in result]
         }

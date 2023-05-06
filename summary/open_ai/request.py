@@ -14,7 +14,16 @@ openai.api_key = settings.OPENAI_KEY
 def log_to_db(func):
     @wraps(func)
     async def _f(user_id: int, *args, **kwargs):
-        response = await func(*args, **kwargs)
+        err = None
+        try:
+            response = await func(*args, **kwargs)
+        except openai.OpenAIError as e:
+            err = e
+            logger.error('openai error %s', ' '.join(e.args))
+            response = {
+                'error': str(e),
+            }
+
         await OpenAICall.objects.acreate(
             user_id=user_id,
             request={
@@ -24,6 +33,9 @@ def log_to_db(func):
             response=response,
             tokens=response.get('usage', {}).get('total_tokens', 0),
         )
+
+        if err:
+            raise err
         return response
 
     return _f
@@ -31,11 +43,7 @@ def log_to_db(func):
 
 @log_to_db
 async def create_chat_completion(model: str, messages: list[dict[str, str]]):
-    try:
-        return await openai.ChatCompletion.acreate(
-            model=model,
-            messages=messages,
-        )
-    except openai.OpenAIError as e:
-        logger.error('openai error %s', ' '.join(e.args))
-        return ''
+    return await openai.ChatCompletion.acreate(
+        model=model,
+        messages=messages,
+    )

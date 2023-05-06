@@ -1,5 +1,9 @@
+import openai
 from typing import TypedDict
 
+from django.utils.translation import gettext as _
+
+from .exceptions import StopPipeline
 from ...open_ai.request import create_chat_completion
 from .stage import Stage
 
@@ -24,18 +28,18 @@ class SummarizeText(Stage[In, Out]):
             'en': 'Summarize text in 40 words:'
         }[self.language]
 
-        response = await create_chat_completion(
-            user_id=self.user_id,
-            model='gpt-3.5-turbo',
-            messages=[
-                {'role': 'user', 'content': f'{command}\n\n{text}'},
-            ],
-        )
-
         try:
-            return response['choices'][0]['message']['content']
-        except (IndexError, KeyError):
-            return ''
+            response = (await create_chat_completion(
+                user_id=self.user_id,
+                model='gpt-4',
+                messages=[
+                    {'role': 'user', 'content': f'{command}\n\n{text}'},
+                ],
+            ))['choices'][0]['message']['content']
+        except (IndexError, KeyError, openai.OpenAIError):
+            raise StopPipeline(_('😥 Sorry, could not process your request'))
+
+        return response
 
     async def __call__(self, data: In) -> Out:
         result = ''

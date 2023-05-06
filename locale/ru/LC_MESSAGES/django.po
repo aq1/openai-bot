@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-04 11:53+0300\n"
+"POT-Creation-Date: 2023-05-06 13:10+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -55,7 +55,9 @@ msgstr ""
 "\n"
 "Также можно просто отправить или переслать сообщение.\n"
 "\n"
-"В групповых чатах бот выделяет краткое содержание сообщения если его упомянуть в ответе.\n\n"
+"В групповых чатах бот выделяет краткое содержание сообщения если его "
+"упомянуть в ответе.\n"
+"\n"
 "Напишите /feedback чтобы написать о баге или задать вопрос."
 
 #: .\summary\tasks\stages\check_length.py:18
@@ -82,6 +84,10 @@ msgstr "Извините, Телеграм не разрешает ботам к
 #| msgid "This file format is not supported."
 msgid "🥺 This file format is not supported."
 msgstr "Этот формат файла не поддерживается"
+
+#: .\summary\tasks\stages\summarize_text.py:41
+msgid "😥 Sorry, could not process your request"
+msgstr "Извините, не удалось обработать ваш запрос"
 
 #: .\summary\tasks\summarize_file.py:64
 msgid "Downloading file..."
