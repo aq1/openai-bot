@@ -1,0 +1,12 @@
+[Unit]
+Description=Open AI Summary Bot
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/apps/openai-bot/.venv/bin/python /apps/openai-bot/manage.py start_bot --name summary
+WorkingDirectory=/apps/openai-bot/
+StandardInput=tty-force
+
+[Install]
+WantedBy=multi-user.target

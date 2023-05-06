@@ -1,0 +1,12 @@
+[Unit]
+Description=Open AI Django
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/apps/openai-bot/.venv/bin/python /apps/openai-bot/manage.py runserver
+WorkingDirectory=/apps/openai-bot/
+StandardInput=tty-force
+
+[Install]
+WantedBy=multi-user.target
