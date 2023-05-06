@@ -9,7 +9,7 @@ from .l10n_context import L10nContext
 
 
 async def call_task(update: Update, context: L10nContext):
-    update.callback_query.answer()
+    await update.callback_query.answer()
 
     _file = await File.objects.filter(
         id=context.match.group(1),

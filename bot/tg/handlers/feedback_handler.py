@@ -59,20 +59,21 @@ handler = ConversationHandler(
     entry_points=[
         CommandHandler(
             command='feedback',
+            filters=filters.ChatType.PRIVATE,
             callback=start_feedback_conversation,
         ),
     ],
     states={
         FEEDBACK: [
             MessageHandler(
-                filters=filters.Text([
+                filters=filters.ChatType.PRIVATE & filters.Text([
                     gettext_in('ru', 'Cancel'),
                     gettext_in('en', 'Cancel'),
                 ]),
                 callback=cancel_feedback,
             ),
             MessageHandler(
-                filters=filters.TEXT,
+                filters=filters.ChatType.PRIVATE & filters.TEXT,
                 callback=feedback,
             ),
         ]
