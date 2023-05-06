@@ -1,5 +1,5 @@
 #!/bin/bash
-cd "/apps/summary-bot/"
+cd "/apps/openai-bot/"
 
 git pull
 
