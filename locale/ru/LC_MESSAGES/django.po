@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-06 13:10+0300\n"
+"POT-Creation-Date: 2023-05-08 17:30+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,10 +20,15 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: .\bot\tg\handlers\call_task_handler.py:34
-#: .\bot\tg\handlers\file_handler.py:40
+#: .\bot\tg\handlers\call_task_handler.py:35
+#: .\bot\tg\handlers\file_handler.py:41
 msgid "Run again"
 msgstr "Запустить ещё раз"
+
+#: .\bot\tg\handlers\create_dalle_variation_handler.py:35
+#: .\bot\tg\handlers\generate_dalle_handler.py:31
+msgid "Try another variation"
+msgstr "Создать похожую картинку"
 
 #: .\bot\tg\handlers\feedback_handler.py:15
 msgid "Your feedback is received. Thank you."
@@ -37,7 +42,7 @@ msgstr "О чём вы хотели написать?"
 msgid "Cancel"
 msgstr "Отменить"
 
-#: .\bot\tg\handlers\start_handler.py:12
+#: .\bot\tg\handlers\start_handler.py:13
 msgid ""
 "With this bot, you can easily extract short summaries from PDF, TXT and DOCX "
 "files in seconds. Simply upload the file you want to extract a summary from, "
@@ -60,18 +65,51 @@ msgstr ""
 "\n"
 "Напишите /feedback чтобы написать о баге или задать вопрос."
 
-#: .\summary\tasks\stages\check_length.py:18
+#: .\bot\tg\handlers\start_handler.py:37
+msgid ""
+"With this bot, you can easily generate images with DALL-E AI in seconds.\n"
+"\n"
+"Just type your prompt and wait for an image.\n"
+"\n"
+"<a href=\"https://labs.openai.com/\">Here</a> you can find example images "
+"with prompts.\n"
+"\n"
+"Type /feedback for bugs/questions/feedback."
+msgstr "С помощью этого бота можно создавать изображения с помощью нейросети DALL-E\n"
+"\n"
+"Просто напишите ваш запрос и мы пришлём вам сгенерированное сообщение.\n"
+"\n"
+"<a href=\"https://labs.openai.com/\">Здесь</a> можно посмотреть примеры изображений и запросов.\n"
+"\n"
+"Напишите /feedback чтобы написать о баге или задать вопрос."
+
+#: .\summary\tasks\create_image_variation.py:44
+#: .\summary\tasks\generate_image.py:44
+msgid "Generating..."
+msgstr "Изображение создаётся..."
+
+#: .\summary\tasks\create_image_variation.py:60
+#: .\summary\tasks\generate_image.py:59
+msgid "Image created"
+msgstr "Изображение создано"
+
+#: .\summary\tasks\stages\check_length.py:13
 msgid ""
 "🤔 This text looks too short. It probably does not need to be summarized."
 msgstr "🤔 Кажется этому тексту не нужно краткое содержание."
 
 #: .\summary\tasks\stages\check_quota.py:34
-#, fuzzy
-#| msgid "You exceeded 24-hour quota. Try again later."
 msgid "😢 You exceeded 24-hour quota. Try again later."
-msgstr "Превышена дневная квота. Попробуйте завтра."
+msgstr "😢 Превышена дневная квота. Попробуйте завтра."
+
+#: .\summary\tasks\stages\create_image_variation.py:37
+#: .\summary\tasks\stages\generate_image.py:36
+#: .\summary\tasks\stages\summarize_text.py:40
+msgid "😥 Sorry, could not process your request"
+msgstr "😥 Извините, не удалось обработать ваш запрос"
 
 #: .\summary\tasks\stages\download_telegram_file.py:48
+#: .\summary\tasks\stages\save_image.py:41
 msgid "Failed to download file"
 msgstr "При скачивании файла произошла ошибка"
 
@@ -79,38 +117,38 @@ msgstr "При скачивании файла произошла ошибка"
 msgid "Sorry, Telegram does not allow bots to download files bigger than 20mb"
 msgstr "Извините, Телеграм не разрешает ботам качать файлы больше 20мб"
 
+#: .\summary\tasks\stages\load_image_from_db.py:34
+msgid "Image was not found"
+msgstr "Изображение не найдено"
+
 #: .\summary\tasks\stages\read_file.py:41
 #, fuzzy
 #| msgid "This file format is not supported."
 msgid "🥺 This file format is not supported."
 msgstr "Этот формат файла не поддерживается"
 
-#: .\summary\tasks\stages\summarize_text.py:41
-msgid "😥 Sorry, could not process your request"
-msgstr "Извините, не удалось обработать ваш запрос"
-
-#: .\summary\tasks\summarize_file.py:64
+#: .\summary\tasks\summarize_file.py:65
 msgid "Downloading file..."
 msgstr "Скачиваем файл..."
 
-#: .\summary\tasks\summarize_file.py:65 .\summary\tasks\summarize_file.py:80
+#: .\summary\tasks\summarize_file.py:66 .\summary\tasks\summarize_file.py:81
 msgid "Extracting text..."
 msgstr "Извлекаем текст..."
 
-#: .\summary\tasks\summarize_file.py:66 .\summary\tasks\summarize_file.py:81
-#: .\summary\tasks\summarize_file.py:93 .\summary\tasks\summarize_text.py:63
+#: .\summary\tasks\summarize_file.py:67 .\summary\tasks\summarize_file.py:82
+#: .\summary\tasks\summarize_file.py:94 .\summary\tasks\summarize_text.py:64
 msgid "Summarizing..."
 msgstr "Извлекаем краткое содержание..."
 
-#: .\summary\tasks\summarize_file.py:79 .\summary\tasks\summarize_file.py:91
-#: .\summary\tasks\summarize_file.py:123
+#: .\summary\tasks\summarize_file.py:80 .\summary\tasks\summarize_file.py:92
+#: .\summary\tasks\summarize_file.py:124
 msgid "Download completed"
 msgstr "Файл скачан"
 
-#: .\summary\tasks\summarize_file.py:92 .\summary\tasks\summarize_file.py:124
+#: .\summary\tasks\summarize_file.py:93 .\summary\tasks\summarize_file.py:125
 msgid "Text is extracted"
 msgstr "Текст прочитан"
 
-#: .\summary\tasks\summarize_file.py:125 .\summary\tasks\summarize_text.py:90
+#: .\summary\tasks\summarize_file.py:126 .\summary\tasks\summarize_text.py:91
 msgid "Summarizing completed"
 msgstr "Краткое содержание готово"

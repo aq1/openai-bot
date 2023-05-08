@@ -35,6 +35,7 @@ async def start_dalle(update: Update, __: L10nContext):
     await update.effective_chat.send_message(
         text=_(
             'With this bot, you can easily generate images with DALL-E AI in seconds.\n\n'
+            'Just type your prompt and wait for an image.\n\n'
             '<a href="https://labs.openai.com/">Here</a> you can find example images with prompts.\n\n'
             'Type /feedback for bugs/questions/feedback.'
         ),
