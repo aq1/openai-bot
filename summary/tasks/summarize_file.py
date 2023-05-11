@@ -68,7 +68,7 @@ async def summarize_file(
                 ),
             ),
             DownloadTelegramFile(
-                token=settings.TELEGRAM_TOKEN,
+                token=settings.SUMMARY_TELEGRAM_TOKEN,
                 user_id=user_id,
             ),
             notify(
